@@ -3,9 +3,13 @@ import { push } from 'react-router-redux';
 
 import { SERVER_URL } from '../utils/config';
 import { checkHttpStatus, parseJSON } from '../utils';
-import { DATA_FETCH_PROTECTED_DATA_REQUEST, DATA_RECEIVE_PROTECTED_DATA } from '../constants';
+import { DATA_FETCH_PROTECTED_DATA_REQUEST, DATA_RECEIVE_PROTECTED_DATA, DATA_FETCH_DATA_REQUEST, DATA_RECEIVE_DATA } from '../constants';
 import { authLoginUserFailure } from './auth';
 
+
+/*
+ * PROTECTED DATA
+ */
 
 export function dataReceiveProtectedData(data) {
     return {
@@ -53,6 +57,44 @@ export function dataFetchProtectedData(token) {
                 }
 
                 dispatch(push('/login'));
+                return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way
+            });
+    };
+}
+
+/*
+ * UNPROTECTED DATA
+ */
+
+export function dataReceiveData(data) {
+  console.log(data);
+    return {
+        type: DATA_RECEIVE_DATA,
+        payload: {
+            data
+        }
+    };
+}
+
+export function dataFetchDataRequest() {
+    return {
+        type: DATA_FETCH_DATA_REQUEST
+    };
+}
+
+export function dataFetchData(slug) {
+  console.log(slug);
+    return (dispatch, state) => {
+        dispatch(dataFetchDataRequest());
+        return fetch(`${SERVER_URL}/api/v1/posts/read${slug}`)
+            .then(checkHttpStatus)
+            .then(parseJSON)
+            .then((response) => {
+                console.log(response.data);
+                dispatch(dataReceiveData(response.data));
+            })
+            .catch((error) => {
+
                 return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way
             });
     };

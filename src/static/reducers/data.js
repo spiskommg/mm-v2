@@ -1,6 +1,8 @@
 import {
     DATA_RECEIVE_PROTECTED_DATA,
-    DATA_FETCH_PROTECTED_DATA_REQUEST
+    DATA_FETCH_PROTECTED_DATA_REQUEST,
+    DATA_RECEIVE_DATA,
+    DATA_FETCH_DATA_REQUEST
 } from '../constants';
 
 const initialState = {
@@ -20,8 +22,18 @@ export default function dataReducer(state = initialState, action) {
             return Object.assign({}, state, {
                 isFetching: true
             });
+
+        case DATA_RECEIVE_DATA:
+            return Object.assign({}, state, {
+                data: action.payload.data,
+                isFetching: false
+            });
+
+        case DATA_FETCH_DATA_REQUEST:
+            return Object.assign({}, state, {
+                isFetching: true
+            });
         default:
             return state;
     }
 }
-
