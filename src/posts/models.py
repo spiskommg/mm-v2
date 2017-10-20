@@ -11,7 +11,9 @@ class Post(models.Model):
     author = models.ForeignKey(User)
     title = models.CharField(max_length=200)
     text = models.TextField()
-    slug = models.SlugField(max_length=40)
+    slug = models.SlugField(max_length=40, null=True)
+    post_type = models.CharField(max_length=50, default='post')
+    post_status = models.CharField(max_length=50, default='draft')
     created_date = models.DateTimeField(
             default=timezone.now)
     published_date = models.DateTimeField(
@@ -22,6 +24,16 @@ class Post(models.Model):
         self.published_date = timezone.now()
         return self.save()
 
+    def update_post(self):
+        return self.save()
 
     def __str__(self):
         return self.title
+
+class PostMeta(models.Model):
+    post = models.ForeignKey(Post)
+    meta_key = models.CharField(max_length=50)
+    meta_value = models.CharField(max_length=512)
+
+    def __str__(self):
+        return self.meta_value

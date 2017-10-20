@@ -23,17 +23,33 @@ class Posts extends React.Component {
     // Warning: setState(...): Cannot update during an existing state transition (such as within `render`).
     // Render methods should be a pure function of props and state.
     componentWillMount() {
-        console.log(this.props.location.pathname);
-        const slug = this.props.location.pathname;
-        this.props.actions.dataFetchData(slug);
+        // console.log(this.props.location.pathname);
+        // const slug = this.props.location.pathname;
+        // this.props.actions.dataFetchData(slug);
+    }
+
+    renderContent(data) {
+      if(data) {
+        return (
+          <div>
+            <h1>{data.title}</h1>
+            <p>
+              {data.text}
+            </p>
+            <p>
+            {data.post_type}
+            </p>
+          </div>
+        );
+      }
     }
 
     render() {
       const props = this.props;
+      console.log('da props', props.data);
         return (
             <div>
-                <h1>fetching the content</h1>
-                {props.location.pathname}
+                {this.renderContent(props.data)}
             </div>
         );
     }

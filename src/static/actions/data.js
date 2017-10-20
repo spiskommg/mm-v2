@@ -82,20 +82,24 @@ export function dataFetchDataRequest() {
     };
 }
 
-export function dataFetchData(slug) {
-  console.log(slug);
+export function dataFetchData(location) {
+  console.log('from data action', location);
+  if(location.pathname != '/') {
     return (dispatch, state) => {
         dispatch(dataFetchDataRequest());
-        return fetch(`${SERVER_URL}/api/v1/posts/read${slug}`)
+        return fetch(`${SERVER_URL}/api/v1/posts${location.pathname}?format=json`)
             .then(checkHttpStatus)
             .then(parseJSON)
             .then((response) => {
-                console.log(response.data);
-                dispatch(dataReceiveData(response.data));
+                console.log(response);
+                dispatch(dataReceiveData(response));
             })
             .catch((error) => {
 
                 return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way
             });
     };
+  } else {
+    return null;
+  }
 }
