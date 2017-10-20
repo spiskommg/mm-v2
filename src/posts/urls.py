@@ -19,7 +19,7 @@ urlpatterns = [
         url(_(r'^single/(?P<slug>[a-z0-9\W]+)$'),
         posts.views.PostsDetail.as_view(),
         name='content'),
-        url(_(r'^(?P<post_type>[a-z0-9\W]+)/$'),
+        url(_(r'^(?P<post_type>[a-z0-9\W]+)$'),
         posts.views.PostsList.as_view(),
         name='content'),
         url(_(r'^$'),

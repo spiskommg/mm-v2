@@ -14,10 +14,10 @@ const target = document.getElementById('root');
 const history = createHistory();
 const store = configureStore(initialState, history);
 
-history.listen((location) => {
-  console.log('from index history listen method', location);
-  store.dispatch(dataFetchData(location));
-});
+// history.listen((location) => {
+//   console.log('from index history listen method', location);
+//   store.dispatch(dataFetchData(location));
+// });
 
 
 const node = (
