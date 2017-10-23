@@ -3,7 +3,7 @@ import itertools
 from rest_framework import serializers
 from django.template.defaultfilters import slugify
 
-from posts.models import Post
+from posts.models import Post, PostMeta
 from lib.utils import validate_email as email_is_valid
 
 
@@ -46,7 +46,7 @@ class PostSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
-class SlugSerializer(serializers.ModelSerializer):
+class PostMetaSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Post
-        fields =('slug')
+        model = PostMeta
+        fields =('id', 'post', 'meta_key', 'meta_value')

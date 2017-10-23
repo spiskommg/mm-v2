@@ -10,29 +10,10 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from posts.models import Post
-from posts.serializers import PostSerializer, SlugSerializer
+from posts.models import Post, PostMeta
+from posts.serializers import PostSerializer, PostMetaSerializer
 from lib.utils import AtomicMixin
 
-
-
-# Create your views here.
-# class PostCreationView(AtomicMixin, CreateModelMixin, GenericAPIView):
-#     serializer_class = PostSerializer
-#
-#     def post(self, request):
-#         """User registration view."""
-#         return self.create(request)
-#
-# class PostUpdateView(AtomicMixin, UpdateModelMixin, GenericAPIView):
-#     serializer_class = PostSerializer
-#
-#     def post(self, request, *args, **kwargs):
-#         """Post update view"""
-#         return self.update(request)
-#
-#     def get_queryset(self):
-#         return
 
 
 class PostsList(ListCreateAPIView):
@@ -54,6 +35,11 @@ class PostsDetail(RetrieveUpdateDestroyAPIView):
     serializer_class = PostSerializer
     lookup_field = 'slug'
 
+
+# POST META VIEWS
+class PostMetaList(ListCreateAPIView):
+    model = PostMeta
+    serializer_class = PostMetaSerializer
 
 # class AllPostView(AtomicMixin, GenericAPIView):
 #     serializer_class = PostSerializer
