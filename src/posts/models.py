@@ -31,7 +31,7 @@ class Post(models.Model):
         return self.title
 
 class PostMeta(models.Model):
-    post = models.ForeignKey(Post)
+    post = models.ForeignKey(Post, null=True, related_name='postmeta')
     meta_key = models.CharField(max_length=50)
     meta_value = models.CharField(max_length=512)
 

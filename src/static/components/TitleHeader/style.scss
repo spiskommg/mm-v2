@@ -1,0 +1,14 @@
+
+.archive-header {
+  position:relative;
+  background-color: $color-purple;
+
+  .title-holder {
+    padding: 10rem 0rem;
+    position:relative;
+
+    h1, h2, h4 {
+      color:#fff;
+    }
+  }
+}

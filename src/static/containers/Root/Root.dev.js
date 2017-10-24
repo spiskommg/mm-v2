@@ -3,10 +3,12 @@ import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
 import PropTypes from 'prop-types';
 
+
 import routes from '../../routes';
 import { dataFetchData } from '../../actions/data';
 import DevTools from './DevTools';
 import App from '../../app';
+
 
 
 export default class Root extends React.Component {
@@ -16,9 +18,7 @@ export default class Root extends React.Component {
     };
 
     componentWillMount() {
-      console.log('root', this.props.history.location);
-      var location = this.props.history.location;
-      this.props.store.dispatch(dataFetchData(location));
+      
     }
 
     render() {

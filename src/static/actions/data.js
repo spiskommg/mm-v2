@@ -83,12 +83,8 @@ export function dataFetchDataRequest() {
 }
 
 export function dataFetchData(location) {
-            console.log('from data action1', location);
     return (dispatch, state) => {
-
         dispatch(dataFetchDataRequest());
-
-          console.log('from data action2', location);
         return fetch(`${SERVER_URL}/api/v1/posts${location.pathname}?format=json`)
             .then(checkHttpStatus)
             .then(parseJSON)

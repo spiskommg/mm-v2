@@ -70,6 +70,7 @@ export function authLoginUser(email, password, redirect = '/') {
             .then(checkHttpStatus)
             .then(parseJSON)
             .then((response) => {
+              console.log(response);
                 dispatch(authLoginUserSuccess(response.token, response.user));
                 dispatch(push(redirect));
             })

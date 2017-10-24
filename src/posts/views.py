@@ -30,10 +30,15 @@ class PostsList(ListCreateAPIView):
 
         return queryset
 
-class PostsDetail(RetrieveUpdateDestroyAPIView):
+class PostsDetailSlug(RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     lookup_field = 'slug'
+
+class PostsDetailID(RetrieveUpdateDestroyAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    lookup_field = 'id'
 
 
 # POST META VIEWS

@@ -10,6 +10,8 @@ const initialState = {
     token: null,
     userName: null,
     isAuthenticated: false,
+    isStaff: false,
+    isSuperUser: false,
     isAuthenticating: false,
     statusText: null
 };
@@ -28,6 +30,8 @@ export default function authReducer(state = initialState, action) {
                 isAuthenticated: true,
                 token: action.payload.token,
                 userName: action.payload.user.email,
+                isStaff: action.payload.user.is_staff,
+                isSuperUser: action.payload.user.is_superuser,
                 statusText: 'You have been successfully logged in.'
             });
 
@@ -37,6 +41,8 @@ export default function authReducer(state = initialState, action) {
                 isAuthenticated: false,
                 token: null,
                 userName: null,
+                isStaff: null,
+                isSuperUser: null,
                 statusText: `Authentication Error: ${action.payload.status} - ${action.payload.statusText}`
             });
 
@@ -45,6 +51,8 @@ export default function authReducer(state = initialState, action) {
                 isAuthenticated: false,
                 token: null,
                 userName: null,
+                isStaff: null,
+                isSuperUser: null,
                 statusText: 'You have been successfully logged out.'
             });
 
@@ -52,4 +60,3 @@ export default function authReducer(state = initialState, action) {
             return state;
     }
 }
-

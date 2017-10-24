@@ -5,13 +5,13 @@ import PropTypes from 'prop-types';
 
 import * as actionCreators from '../../actions/data';
 
-class Posts extends React.Component {
-
+class AdminView extends React.Component {
     static propTypes = {
         isFetching: PropTypes.bool.isRequired,
-        data: PropTypes.object,
+        data: PropTypes.string,
+        token: PropTypes.string.isRequired,
         actions: PropTypes.shape({
-            dataFetchData: PropTypes.func.isRequired
+            dataFetchProtectedData: PropTypes.func.isRequired
         }).isRequired
     };
 
@@ -23,37 +23,27 @@ class Posts extends React.Component {
     // Warning: setState(...): Cannot update during an existing state transition (such as within `render`).
     // Render methods should be a pure function of props and state.
     componentWillMount() {
-        this.props.actions.dataFetchData(this.props.location);
-    }
-
-    renderContent(data) {
-      if(data) {
-        return (
-          <div>
-            <h1>{data.title}</h1>
-            <p>
-              {data.text}
-            </p>
-            <p>
-            {data.post_type}
-            </p>
-          </div>
-        );
-      }
+        const token = this.props.token;
+        this.props.actions.dataFetchProtectedData(token);
     }
 
     render() {
-      const props = this.props;
-      console.log('da props', props.data);
         return (
-            <div>
-                {this.renderContent(props.data)}
+            <div className="protected">
+                <div className="container-fluid">
+                  <div className="row">
+                    <div className="col-md-2">
+                      sidebar options
+                    </div>
+                    <div className="col-md-10">
+                      main content
+                    </div>
+                  </div>
+                </div>
             </div>
         );
     }
 }
-
-
 
 const mapStateToProps = (state) => {
     return {
@@ -68,5 +58,5 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Posts);
-export { Posts as PostsNotConnected };
+export default connect(mapStateToProps, mapDispatchToProps)(AdminView);
+export { AdminView as AdminViewNotConnected };

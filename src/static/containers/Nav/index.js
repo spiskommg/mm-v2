@@ -4,15 +4,17 @@ import { push } from 'react-router-redux';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
-import { authLogoutAndRedirect } from './actions/auth';
-import './styles/main.scss';
+import { authLogoutAndRedirect } from '../../actions/auth';
+import '../../styles/main.scss';
+import AdminNav from './AdminNav/index';
+import UserNav from './UserNav/index';
+import GuestNav from './GuestNav/index';
 
-import { Nav } from './containers';
-
-class App extends React.Component {
+class Nav extends React.Component {
     static propTypes = {
         isAuthenticated: PropTypes.bool.isRequired,
-        children: PropTypes.shape().isRequired,
+        isStaff: PropTypes.bool.isRequired,
+        isSuperUser: PropTypes.bool.isRequired,
         dispatch: PropTypes.func.isRequired,
         location: PropTypes.shape({
             pathname: PropTypes.string
@@ -22,6 +24,15 @@ class App extends React.Component {
     static defaultProps = {
         location: undefined
     };
+
+    renderFrontendNav = () => {
+      if(this.props.location) {
+        return this.props.location.pathname.includes('admin') ?
+            <div className="container-fluid"> admin stuff </div>
+        :
+          <UserNav />
+      }
+    }
 
     logout = () => {
         this.props.dispatch(authLogoutAndRedirect());
@@ -51,11 +62,19 @@ class App extends React.Component {
         });
 
         return (
-            <div className="app">
-              <Nav />
-              <div>
-                  {this.props.children}
-              </div>
+            <div className="main-nav">
+              {
+                this.props.isAuthenticated ?
+                  this.props.isSuperUser ?
+                    <div>
+                      <AdminNav />
+                      {this.renderFrontendNav()}
+                    </div>
+                    :
+                    <UserNav />
+                :
+                <GuestNav />
+              }
             </div>
         );
     }
@@ -64,9 +83,11 @@ class App extends React.Component {
 const mapStateToProps = (state, ownProps) => {
     return {
         isAuthenticated: state.auth.isAuthenticated,
+        isStaff: state.auth.isStaff,
+        isSuperUser: state.auth.isSuperUser,
         location: state.routing.location
     };
 };
 
-export default connect(mapStateToProps)(App);
-export { App as AppNotConnected };
+export default connect(mapStateToProps)(Nav);
+export { Nav as NavNotConnected };

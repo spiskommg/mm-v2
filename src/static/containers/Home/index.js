@@ -6,6 +6,9 @@ import PropTypes from 'prop-types';
 import './style.scss';
 import reactLogo from './images/react-logo.png';
 import reduxLogo from './images/redux-logo.png';
+import headerBG from './images/home.jpg';
+
+import TitleHeader from '../../components/TitleHeader';
 
 class HomeView extends React.Component {
     static propTypes = {
@@ -25,22 +28,13 @@ class HomeView extends React.Component {
 
     render() {
         return (
-            <div className="container">
-                <div className="margin-top-medium text-center">
-                    <img className="page-logo margin-bottom-medium"
-                        src={reactLogo}
-                        alt="ReactJs"
-                    />
-                    <img className="page-logo margin-bottom-medium"
-                        src={reduxLogo}
-                        alt="Redux"
-                    />
-                </div>
-                <div className="text-center">
-                    <h1>Moms Meet</h1>
-                    <h2>Django/React/Redux Demo</h2>
-                    <h4>Hello, {this.props.userName || 'guest'}.</h4>
-                </div>
+            <div>
+              <TitleHeader backgroundImage={headerBG}>
+                  <h1>Moms Meet</h1>
+                  <h2>Try and Review Better-For-You Products</h2>
+                  <h4>Hello, {this.props.userName || 'guest'}.</h4>
+              </TitleHeader>
+
                 <div className="margin-top-medium text-center">
                     <p>Attempt to access some <a onClick={this.goToProtected}><b>protected content</b></a>.</p>
                 </div>
@@ -57,6 +51,8 @@ class HomeView extends React.Component {
         );
     }
 }
+
+
 
 const mapStateToProps = (state) => {
     return {
