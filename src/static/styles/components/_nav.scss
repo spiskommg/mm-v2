@@ -2,14 +2,16 @@
  * ADMIN NAV
  */
 .adminNav {
+
   .navbar {
     background-color:#333;
     min-height:25px;
-
+    border:none;
     .navbar-brand {
       height:auto;
       padding:5px;
       margin-left:0px;
+      color:#fff;
     }
 
     .navbar-nav >
@@ -35,9 +37,15 @@
  */
 
 .userNav {
-  .navbar-default .navbar-nav {
-    li > a {
-      color:#fff;
+  .navbar-brand {
+    color:#fff;
+  }
+  .navbar-default {
+    border:none;
+    .navbar-nav {
+      li > a {
+        color:#fff;
+      }
     }
   }
 }

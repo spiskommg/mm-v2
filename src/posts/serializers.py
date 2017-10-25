@@ -15,6 +15,7 @@ class PostMetaSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             "id": {
                 "read_only": False,
+                "required": False,
             },
         }
 

@@ -78,6 +78,12 @@ const common = {
         modules: ['node_modules']
     },
     module: {
+      loaders: [{
+       test: /\.css$/,
+       loaders: [
+         'style', 'css'
+       ]
+      }],
         rules: [
             {
                 test: /\.js$/,

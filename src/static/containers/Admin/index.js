@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 
 import * as actionCreators from '../../actions/data';
+import EditorComponent from '../../components/Input/EditorComponent/index';
 
 class AdminView extends React.Component {
     static propTypes = {
@@ -36,7 +37,7 @@ class AdminView extends React.Component {
                       sidebar options
                     </div>
                     <div className="col-md-10">
-                      main content
+                      <EditorComponent />
                     </div>
                   </div>
                 </div>

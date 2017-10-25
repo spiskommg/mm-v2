@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import { CSSTransitionGroup } from 'react-transition-group';
 
 import { authLogoutAndRedirect } from '../../actions/auth';
 import '../../styles/main.scss';
@@ -28,7 +29,7 @@ class Nav extends React.Component {
     renderFrontendNav = () => {
       if(this.props.location) {
         return this.props.location.pathname.includes('admin') ?
-            <div className="container-fluid"> admin stuff </div>
+            <div className="container-fluid"> &nbsp;</div>
         :
           <UserNav />
       }

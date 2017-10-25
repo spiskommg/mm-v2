@@ -2,7 +2,9 @@ import {
     DATA_RECEIVE_PROTECTED_DATA,
     DATA_FETCH_PROTECTED_DATA_REQUEST,
     DATA_RECEIVE_DATA,
-    DATA_FETCH_DATA_REQUEST
+    DATA_FETCH_DATA_REQUEST,
+    DATA_RECEIVE_QUERY_DATA,
+    DATA_FETCH_QUERY_DATA_REQUEST
 } from '../constants';
 
 const initialState = {
@@ -30,6 +32,17 @@ export default function dataReducer(state = initialState, action) {
             });
 
         case DATA_FETCH_DATA_REQUEST:
+            return Object.assign({}, state, {
+                isFetching: true
+            });
+
+        case DATA_RECEIVE_QUERY_DATA:
+            return Object.assign({}, state, {
+                queryData: action.payload.queryData,
+                isFetching: false
+            });
+
+        case DATA_FETCH_QUERY_DATA_REQUEST:
             return Object.assign({}, state, {
                 isFetching: true
             });

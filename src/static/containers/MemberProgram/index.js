@@ -5,12 +5,16 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 
 import * as actionCreators from '../../actions/data';
+import MemberProgramList from '../../components/MemberProgramList/index';
+import TitleHeader from '../../components/TitleHeader';
+
+import headerBG from './images/sample_a_product.jpg';
 
 class MemberProgram extends React.Component {
     static propTypes = {
         statusText: PropTypes.string,
         userName: PropTypes.string,
-        data: PropTypes.object,
+        queryData: PropTypes.object,
         actions: PropTypes.shape({
             dataFetchData: PropTypes.func.isRequired
         }).isRequired,
@@ -20,7 +24,7 @@ class MemberProgram extends React.Component {
     static defaultProps = {
         statusText: '',
         userName: '',
-        data: '',
+        queryData: {},
     };
 
     // goToUrl = (slug) => {
@@ -28,31 +32,21 @@ class MemberProgram extends React.Component {
     // }
 
     componentWillMount() {
-        const slug = this.props.location.pathname;
-        this.props.actions.dataFetchData(slug);
+        const query = '/type/member-program';
+        this.props.actions.dataFetchQueryData(query);
     }
-
-    renderContent(data) {
-      if(data) {
-        return this.props.data.results.map((item, i) => {
-          console.log(item);
-          return (
-            <div key={i}>
-              <a>
-                {item.title}
-              </a>
-            </div>);
-        });
-      }
-    };
 
     render() {
         return (
-            <div className="container">
-                  member program main route
-                  <ul>
-                  {this.renderContent(this.props.data)}
-                  </ul>
+            <div>
+              <TitleHeader backgroundImage={headerBG}>
+                  <h1>Member Programs</h1>
+                  <h2>Try and Review Better-For-You Products</h2>
+                  <h4>Hello, {this.props.userName || 'guest'}.</h4>
+              </TitleHeader>
+              <div className="container">
+                <MemberProgramList queryData={this.props.queryData} />
+              </div>
             </div>
         );
     }
@@ -62,7 +56,7 @@ const mapStateToProps = (state) => {
     return {
         userName: state.auth.userName,
         statusText: state.auth.statusText,
-        data: state.data.data,
+        queryData: state.data.queryData,
     };
 };
 

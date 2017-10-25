@@ -53,9 +53,9 @@ class App extends React.Component {
         return (
             <div className="app">
               <Nav />
-              <div>
-                  {this.props.children}
-              </div>
+                <div>
+                    {this.props.children}
+                </div>
             </div>
         );
     }

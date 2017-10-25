@@ -3,61 +3,35 @@ import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import Card from '../Card/index';
+
 class MemberProgramList extends React.Component {
     static propTypes = {
-        statusText: PropTypes.string,
-        userName: PropTypes.string,
-        data: PropTypes.object,
-        dispatch: PropTypes.func.isRequired,
+        queryData: PropTypes.object,
     };
 
     static defaultProps = {
-        statusText: '',
-        userName: '',
-        data: ''
+        queryData: {}
     };
-
-    goToProtected = () => {
-        this.props.dispatch(push('/protected'));
-    };
-
-    componentWillMount() {
-
-    }
 
     renderContent(data) {
-      if(data) {
-        return (
-          <div>
-            <h1>{data.title}</h1>
-            <p>
-              {data.text}
-            </p>
-            <p>
-            {data.post_type}
-            </p>
-          </div>
-        );
+      console.log(data.count);
+      if(data.count) {
+        return data.results.map((item, i) => {
+          console.log(item, i);
+          return <Card key={item.id} item={item} />;
+        });
       }
     };
 
     render() {
         return (
-            <div className="container">
-                  member program list route
-                  {this.renderContent(this.props.data)}
+            <div className="row">
+                  {this.renderContent(this.props.queryData)}
             </div>
         );
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        userName: state.auth.userName,
-        statusText: state.auth.statusText,
-        data: state.data.data,
-    };
-};
-
-export default connect(mapStateToProps)(MemberProgramList);
-export { MemberProgramList as MemberProgramListViewNotConnected };
+export default connect(null)(MemberProgramList);
+export { MemberProgramList as MemberProgramListNotConnected };

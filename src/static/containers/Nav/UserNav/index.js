@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import { CSSTransitionGroup } from 'react-transition-group';
 
 import { authLogoutAndRedirect } from '../../../actions/auth';
 import '../../../styles/main.scss';
@@ -49,6 +50,13 @@ class UserNav extends React.Component {
         });
 
         return (
+          <CSSTransitionGroup
+             transitionName="slide-down"
+             transitionAppear={true}
+             transitionAppearTimeout={300}
+             transitionEnterTimeout={300}
+             transitionLeaveTimeout={400}
+           >
             <div className="userNav">
                 <nav className="navbar navbar-default" style={ userNavStyle }>
                     <div className="container-fluid">
@@ -110,6 +118,7 @@ class UserNav extends React.Component {
                     </div>
                 </nav>
             </div>
+            </CSSTransitionGroup>
         );
     }
 }

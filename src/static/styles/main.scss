@@ -1,6 +1,7 @@
 @import "config/reset";
 @import "config/fonts";
 @import "config/typography";
+@import "config/transitions";
 
 @import "theme/base";
 @import "theme/login";
@@ -8,5 +9,7 @@
 @import "theme/footer";
 
 @import "utils/margins";
+
+ @import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 @import "components/nav";
